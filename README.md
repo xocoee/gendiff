@@ -1,13 +1,10 @@
 ### Hexlet tests and linter status:
 
-[![Actions Status](https://github.com/xocoee/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)]
-(https://github.com/xocoee/frontend-project-46/actions)
+[![Actions Status](https://github.com/xocoee/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/xocoee/frontend-project-46/actions)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/9cc2deba04ccc8ca470f/maintainability)] 
-(https://codeclimate.com/github/xocoee/frontend-project-46/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9cc2deba04ccc8ca470f/maintainability)] (https://codeclimate.com/github/xocoee/frontend-project-46/maintainability)
 
-[![Test Coverage] (https://api.codeclimate.com/v1/badges/9cc2deba04ccc8ca470f/test_coverage)]
-(https://codeclimate.com/github/xocoee/frontend-project-46/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9cc2deba04ccc8ca470f/test_coverage)](https://codeclimate.com/github/xocoee/frontend-project-46/test_coverage)
 
 
 ### genDiff, the command-line utility.
