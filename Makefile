@@ -1,20 +1,17 @@
-install: install-deps
-	npx simple-git-hooks
-
-run:
-	bin/nodejs-package.js 10
-
-install-deps:
+install: 
 	npm ci
 
-test:
-	npm test
-
-test-coverage:
-	npm test -- --coverage --coverageProvider=v8
+publish:
+	npm publish --dry-run
 
 lint:
 	npx eslint .
+
+test:
+	npx jest
+
+test-coverage:
+	npx jest --coverage
 
 publish:
 	npm publish
