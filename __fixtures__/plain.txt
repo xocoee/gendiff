@@ -1,11 +1,7 @@
-Property 'common.follow' was added with value: false
-Property 'common.setting2' was removed
-Property 'common.setting3' was updated. From true to null
-Property 'common.setting4' was added with value: 'blah blah'
-Property 'common.setting5' was added with value: [complex value]
-Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
-Property 'common.setting6.ops' was added with value: 'vops'
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group1.nest' was updated. From [complex value] to 'str'
-Property 'group2' was removed
-Property 'group3' was added with value: [complex value]
+Property 'car' was updated. From 'toyota' to 'honda'
+Property 'color' was updated. From 'yellow' to 'red'
+Property 'engine.cylinders' was updated. From 6 to 4
+Property 'engine.size' was updated. From 3.6 to 2.2
+Property 'owner.adress.city' was updated. From 'Reykjavik' to 'L.A. / Beverlie Hills'
+Property 'owner.adress.country' was updated. From 'Iceland' to 'USA'
+Property 'owner.name' was updated. From 'xocoee' to 'Mike'

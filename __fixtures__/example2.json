@@ -1,6 +1,16 @@
 {
-    "timeout": 20,
-    "verbose": true,
-    "host": "hexlet.io"
+  "car": "toyota",
+  "color": "yellow",
+  "wheels": 4,
+  "engine": {
+    "cylinders": 6,
+    "size": 3.6
+  },
+  "owner": {
+    "name": "xocoee",
+    "adress": {
+      "country": "Iceland",
+      "city": "Reykjavik"
+    }
   }
-  
+}
