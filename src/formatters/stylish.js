@@ -11,7 +11,7 @@ const marks = {
   nested: '  ',
 };
 
-const getCloseBracket = (depth) => `${getSpaces(depth - 1)}${marks.closeBracket}`;
+const getCloseBracket = (depth) => `${getSpaces(depth - 1)}}`;
 
 const stringify = (node, depth = 1) => {
   const indent = getSpaces(depth);
@@ -21,7 +21,7 @@ const stringify = (node, depth = 1) => {
   const strings = Object.entries(node).map(
     ([key, val]) => `${indent}${key}: ${stringify(val, depth + 1)}`,
   );
-  return [marks.openBracket, ...strings, getCloseBracket(depth)].join('\n');
+  return ['{', ...strings, getCloseBracket(depth)].join('\n');
 };
 
 const stylish = (diffTree) => {
@@ -31,7 +31,7 @@ const stylish = (diffTree) => {
       const {
         key, status, value, previous, current, children,
       } = prop;
-      const stringStarter = `${indent}${marks[status]}${key}`;
+      const stringStarter = `${indent}${status === 'removed' ? '- ' : '+ '}${key}`;
       switch (status) {
         case 'removed':
           return [...acc, `${stringStarter}: ${stringify(value, depth + 1)}`];
@@ -40,9 +40,7 @@ const stylish = (diffTree) => {
         case 'updated':
           return [
             ...acc,
-            `${indent}${marks.removed}${key}: ${stringify(previous, depth + 1)}\n${indent}${
-              marks.added
-            }${key}: ${stringify(current, depth + 1)}`,
+            `${indent}- ${key}: ${stringify(previous, depth + 1)}\n${indent}+ ${key}: ${stringify(current, depth + 1)}`,
           ];
         case 'nested':
           return [...acc, `${stringStarter}: ${iter(children, depth + 1)}`];
@@ -50,7 +48,7 @@ const stylish = (diffTree) => {
           return [...acc, `${stringStarter}: ${stringify(value, depth + 1)}`];
       }
     }, []);
-    return [marks.openBracket, ...strings, getCloseBracket(depth)].join('\n');
+    return ['{', ...strings, getCloseBracket(depth)].join('\n');
   };
   return iter(diffTree, 1);
 };
