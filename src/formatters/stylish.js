@@ -18,20 +18,17 @@ const stylish = (diffTree) => {
   const iter = (node, depth) => {
     const indent = getSpaces(depth).slice(2);
     const strings = node.map((prop) => {
-      const {
-        key, status, value, previous, current, children,
-      } = prop;
-      switch (status) {
+      switch (prop.status) {
         case 'removed':
-          return `${indent}- ${key}: ${stringify(value, depth + 1)}`;
+          return `${indent}- ${prop.key}: ${stringify(prop.value, depth + 1)}`;
         case 'added':
-          return `${indent}+ ${key}: ${stringify(value, depth + 1)}`;
+          return `${indent}+ ${prop.key}: ${stringify(prop.value, depth + 1)}`;
         case 'updated':
-          return `${indent}- ${key}: ${stringify(previous, depth + 1)}\n${indent}+ ${key}: ${stringify(current, depth + 1)}`;
+          return `${indent}- ${prop.key}: ${stringify(prop.previous, depth + 1)}\n${indent}+ ${prop.key}: ${stringify(prop.current, depth + 1)}`;
         case 'nested':
-          return `${indent}  ${key}: ${iter(children, depth + 1)}`;
+          return `${indent}  ${prop.key}: ${iter(prop.children, depth + 1)}`;
         default:
-          return `${indent}  ${key}: ${stringify(value, depth + 1)}`;
+          return `${indent}  ${prop.key}: ${stringify(prop.value, depth + 1)}`;
       }
     });
     return ['{', ...strings, getCloseBracket(depth)].join('\n');

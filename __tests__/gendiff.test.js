@@ -53,8 +53,8 @@ const cases = [
     f1: 'example7.json',
     f2: 'example8.json',
     exp: 'JSON.txt',
-    format: 'JSON',
-    title: 'to JSON from json',
+    format: 'json',
+    title: 'to json from json',
   },
 ];
 

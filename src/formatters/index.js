@@ -1,5 +1,5 @@
-import plain from './formatters/plain.js';
-import stylish from './formatters/stylish.js';
+import plain from './plain.js';
+import stylish from './stylish.js';
 
 export default (diffTree, format) => {
   switch (format) {
@@ -8,7 +8,6 @@ export default (diffTree, format) => {
     case 'plain':
       return plain(diffTree);
     case 'json':
-    case 'JSON':
       return JSON.stringify(diffTree);
     default:
       throw new Error(`${format} do not supported!`);

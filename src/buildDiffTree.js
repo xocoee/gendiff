@@ -8,21 +8,40 @@ const buildDiffTree = (obj1, obj2) => {
     if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
       return { key, status: 'nested', children: buildDiffTree(obj1[key], obj2[key]) };
     }
-    if (obj1HasKey && obj2HasKey && obj1[key] !== obj2[key]) {
+
+    if (obj1HasKey && obj2HasKey) {
+      if (obj1[key] !== obj2[key]) {
+        return {
+          key,
+          status: 'updated',
+          previous: obj1[key],
+          current: obj2[key],
+        };
+      }
       return {
         key,
-        status: 'updated',
-        previous: obj1[key],
-        current: obj2[key],
+        status: 'unmodified',
+        value: obj1[key],
       };
     }
+
     if (!obj1HasKey && obj2HasKey) {
-      return { key, status: 'added', value: obj2[key] };
+      return {
+        key,
+        status: 'added',
+        value: obj2[key],
+      };
     }
+
     if (obj1HasKey && !obj2HasKey) {
-      return { key, status: 'removed', value: obj1[key] };
+      return {
+        key,
+        status: 'removed',
+        value: obj1[key],
+      };
     }
-    return { key, status: 'unmodified', value: obj1[key] };
+
+    return null;
   });
   return result;
 };

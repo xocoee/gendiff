@@ -13,19 +13,16 @@ const stringify = (node) => {
 const plain = (diffTree) => {
   const iter = (node, path = '') => {
     const strings = node.map((prop) => {
-      const {
-        key, status, value, previous, current, children,
-      } = prop;
-      const currentPath = [path, key].join('.');
-      switch (status) {
+      const currentPath = [path, prop.key].join('.');
+      switch (prop.status) {
         case 'removed':
           return `Property '${currentPath.substring(1)}' was removed`;
         case 'added':
-          return `Property '${currentPath.substring(1)}' was added with value: ${stringify(value)}`;
+          return `Property '${currentPath.substring(1)}' was added with value: ${stringify(prop.value)}`;
         case 'updated':
-          return `Property '${currentPath.substring(1)}' was updated. From ${stringify(previous)} to ${stringify(current)}`;
+          return `Property '${currentPath.substring(1)}' was updated. From ${stringify(prop.previous)} to ${stringify(prop.current)}`;
         case 'nested':
-          return iter(children, currentPath);
+          return iter(prop.children, currentPath);
         default:
           return '';
       }

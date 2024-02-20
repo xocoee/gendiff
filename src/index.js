@@ -1,7 +1,7 @@
 import path from 'path';
 import parse from './parser.js';
 import buildDiffTree from './buildDiffTree.js';
-import toFormat from './toFormat.js';
+import toFormat from './formatters/index.js';
 
 const getAbsPath = (filePath) => path.resolve(process.cwd(), filePath);
 const getExtname = (filepath) => path.extname(filepath);
