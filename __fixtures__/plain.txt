@@ -1,7 +1,7 @@
-Property 'car' was updated. From 'toyota' to 'honda'
-Property 'color' was updated. From 'yellow' to 'red'
-Property 'engine.cylinders' was updated. From 6 to 4
-Property 'engine.size' was updated. From 3.6 to 2.2
-Property 'owner.adress.city' was updated. From 'Reykjavik' to 'L.A. / Beverlie Hills'
-Property 'owner.adress.country' was updated. From 'Iceland' to 'USA'
-Property 'owner.name' was updated. From 'xocoee' to 'Mike'
+Property 'car' was updated. From 'honda' to 'toyota'
+Property 'color' was updated. From 'red' to 'yellow'
+Property 'engine.cylinders' was updated. From 4 to 6
+Property 'engine.size' was updated. From 2.2 to 3.6
+Property 'owner.adress.city' was updated. From 'L.A. / Beverlie Hills' to 'Reykjavik'
+Property 'owner.adress.country' was updated. From 'USA' to 'Iceland'
+Property 'owner.name' was updated. From 'Mike' to 'xocoee'

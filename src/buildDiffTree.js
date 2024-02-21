@@ -1,32 +1,26 @@
 import _ from 'lodash';
 
-const buildDiffTree = (obj1, obj2) => {
-  const keys = _.sortBy(_.union([...Object.keys(obj1), ...Object.keys(obj2)]));
+const buildDiffTree = (data1, data2) => {
+  const keys = _.sortBy(_.union([...Object.keys(data1), ...Object.keys(data2)]));
   const result = keys.map((key) => {
-    const obj1HasKey = _.has(obj1, key);
-    const obj2HasKey = _.has(obj2, key);
-
-    if (!obj1HasKey && !obj2HasKey) {
-      return { key, status: 'unmodified', value: obj1[key] };
+    if (!_.has(data1, key)) {
+      return { key, action: 'added', value: data2[key] };
     }
-    if (!obj1HasKey && obj2HasKey) {
-      return { key, status: 'added', value: obj2[key] };
+    if (!_.has(data2, key)) {
+      return { key, action: 'removed', value: data1[key] };
     }
-    if (obj1HasKey && !obj2HasKey) {
-      return { key, status: 'removed', value: obj1[key] };
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
+      return { key, action: 'nested', children: buildDiffTree(data1[key], data2[key]) };
     }
-    if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
-      return { key, status: 'nested', children: buildDiffTree(obj1[key], obj2[key]) };
-    }
-    if (!_.isEqual(obj1[key], obj2[key])) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
         key,
-        status: 'updated',
-        previous: obj1[key],
-        current: obj2[key],
+        action: 'updated',
+        oldValue: data1[key],
+        newValue: data2[key],
       };
     }
-    return { key, status: 'unmodified', value: obj1[key] };
+    return { key, action: 'unmodified', value: data1[key] };
   });
   return result;
 };

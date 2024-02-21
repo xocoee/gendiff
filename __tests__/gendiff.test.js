@@ -1,12 +1,29 @@
-import { test, expect } from '@jest/globals';
+import { test, expect, describe } from '@jest/globals';
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
 
+const testList = [
+  'yml',
+  'json',
+];
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
 const getFixture = (filename) => readFileSync(fixturePath(filename), 'utf8').trim();
+
+describe('formatter installation', () => {
+  test.each(testList)('formatter %s', (format) => {
+    const filepath1 = fixturePath(`example1.${format}`);
+    const filepath2 = fixturePath(`example2.${format}`);
+
+    expect(genDiff(filepath1, filepath2)).toEqual(getFixture('stylish_recursive.txt'));
+    expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(getFixture('stylish_recursive.txt'));
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(getFixture('plain.txt'));
+    expect(genDiff(filepath1, filepath2, 'json')).toEqual(getFixture('json.txt'));
+  });
+});
 
 const cases = [
   {
@@ -14,42 +31,42 @@ const cases = [
     f2: 'example2.json',
     exp: 'stylish_recursive.txt',
     format: 'stylish',
-    title: 'to stylish from JSON',
+    title: 'to stylish from json json',
   },
   {
     f1: 'example1.yml',
     f2: 'example2.yml',
     exp: 'stylish_recursive.txt',
     format: 'stylish',
-    title: 'to stylish from YML',
+    title: 'to stylish from yml yml',
   },
   {
     f1: 'example1.json',
-    f2: 'example2.yaml',
-    exp: 'stylish_recursive.txt',
-    format: 'stylish',
-    title: 'to stylish from mixed',
-  },
-  {
-    f1: 'example2.json',
-    f2: 'example1.yaml',
+    f2: 'example2.json',
     exp: 'plain.txt',
     format: 'plain',
-    title: 'to plain from mixed',
+    title: 'to plain from json json',
   },
   {
-    f1: 'example1.yaml',
-    f2: 'example2.json',
-    exp: 'json.txt',
-    format: 'json',
-    title: 'to json from mixed',
+    f1: 'example1.yml',
+    f2: 'example2.yml',
+    exp: 'plain.txt',
+    format: 'plain',
+    title: 'to plain from yml yml',
   },
   {
     f1: 'example1.json',
     f2: 'example2.json',
     exp: 'json.txt',
     format: 'json',
-    title: 'to json from json',
+    title: 'to json from json json',
+  },
+  {
+    f1: 'example1.yml',
+    f2: 'example2.yml',
+    exp: 'json.txt',
+    format: 'json',
+    title: 'to json from yml yml',
   },
 ];
 
