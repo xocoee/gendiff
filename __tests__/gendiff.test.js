@@ -9,22 +9,6 @@ const testList = [
   'json',
 ];
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const fixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
-const getFixture = (filename) => readFileSync(fixturePath(filename), 'utf8').trim();
-
-describe('formatter installation', () => {
-  test.each(testList)('formatter %s', (format) => {
-    const filepath1 = fixturePath(`example1.${format}`);
-    const filepath2 = fixturePath(`example2.${format}`);
-
-    expect(genDiff(filepath1, filepath2)).toEqual(getFixture('stylish_recursive.txt'));
-    expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(getFixture('stylish_recursive.txt'));
-    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(getFixture('plain.txt'));
-    expect(genDiff(filepath1, filepath2, 'json')).toEqual(getFixture('json.txt'));
-  });
-});
-
 const cases = [
   {
     f1: 'example1.json',
@@ -69,6 +53,20 @@ const cases = [
     title: 'to json from yml yml',
   },
 ];
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const fixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
+const getFixture = (filename) => readFileSync(fixturePath(filename), 'utf8').trim();
+
+test.each(testList)('TEST: to format %s', (format) => {
+  const filepath1 = fixturePath(`example1.${format}`);
+  const filepath2 = fixturePath(`example2.${format}`);
+
+  expect(genDiff(filepath1, filepath2)).toEqual(getFixture('stylish_recursive.txt'));
+  expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(getFixture('stylish_recursive.txt'));
+  expect(genDiff(filepath1, filepath2, 'plain')).toEqual(getFixture('plain.txt'));
+  expect(genDiff(filepath1, filepath2, 'json')).toEqual(getFixture('json.txt'));
+});
 
 test.each(cases)('TEST: $title', ({
   f1, f2, exp, format,
